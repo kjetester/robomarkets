@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Offices suite"
+       thread-count="1"
+       configfailurepolicy="continue"
+       parallel="true"
+       verbose="5">
+
+    <test name="Registration Tests" enabled="true" thread-count="1">
+        <classes>
+            <class name="com.roboforex.webtrader.registration.RegisterTest"/>
+        </classes>
+    </test>
+
+</suite>
