@@ -23,14 +23,15 @@ public class LoginSteps extends BaseSteps {
     submitLogin();
   }
 
-  private void fillUpEmailInput(String clientEmail) {
+  private void fillUpEmailInput(final String clientEmail) {
     LOGGER.info(String.format("Filling up the 'Email' field with value '%s'", clientEmail));
     PageFactory.initElements(getDriver(), LoginPage.class).getEmailInput().sendKeys(clientEmail);
   }
 
-  private void fillUpPasswordInput(String clientPassword) {
+  private void fillUpPasswordInput(final String clientPassword) {
     LOGGER.info(String.format("Filling up the 'Password' field with value '%s'", clientPassword));
-    PageFactory.initElements(getDriver(), LoginPage.class).getPasswordInput().sendKeys(clientPassword);
+    PageFactory.initElements(getDriver(), LoginPage.class).getPasswordInput()
+        .sendKeys(clientPassword);
   }
 
   private void submitLogin() {

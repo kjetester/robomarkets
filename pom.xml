@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>14</java.version>
         <testng.version>7.3.0</testng.version>
-        <selenium.version>4.0.0-alpha-6</selenium.version>
+        <selenium.version>3.141.59</selenium.version>
         <webdrivermanager.version>4.1.0</webdrivermanager.version>
         <assertj.version>3.16.1</assertj.version>
         <lombok.version>1.18.12</lombok.version>

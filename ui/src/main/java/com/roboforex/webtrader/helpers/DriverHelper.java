@@ -44,7 +44,7 @@ public class DriverHelper {
    */
   public static void killDriver() {
     if (driver != null) {
-      LOGGER.debug("Closing Chrome");
+      LOGGER.info("Closing Chrome");
       driver.close();
       driver.quit();
       driver = null;

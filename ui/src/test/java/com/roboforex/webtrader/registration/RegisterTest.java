@@ -15,8 +15,17 @@ public class RegisterTest extends BaseTest {
                                   final String phoneCode,
                                   final String phoneNumber) {
     LOGIN_STEP.openRegisterPage();
-    REGISTER_STEP.fillUpAndSubmitRegFormAssumingSuccess(email, firstName, lastName, isAgeConfirmed, isTermsAgreed, phoneCode, phoneNumber);
-    setClientPassword(ACCOUNT_DETAILS_STEP.checkIfRegistrationSucceeded(email, firstName, lastName));
+    REGISTER_STEP.fillUpAndSubmitRegFormAssumingSuccess(email,
+        firstName,
+        lastName,
+        isAgeConfirmed,
+        isTermsAgreed,
+        phoneCode,
+        phoneNumber);
+    setClientPassword(ACCOUNT_DETAILS_STEP.checkIfRegistrationSucceeded(
+        email,
+        firstName,
+        lastName));
     TOUR_STEP.closeTourWindowIfPresent();
     ACCOUNT_STEP.logOut();
     LOGIN_STEP.logIn(email, getClientPassword());

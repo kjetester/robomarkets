@@ -23,6 +23,7 @@ public class BaseSteps {
   private static final Logger LOGGER = LogManager.getLogger(BaseSteps.class);
 
   public void goTo(final String baseUrl) {
+    LOGGER.info(String.format("Opening '%s'", baseUrl));
     getDriver().get(baseUrl);
   }
 
@@ -50,7 +51,8 @@ public class BaseSteps {
    * @param webElements WebElements
    * @return WebElement
    */
-  protected WebElement scrollToElement(final List<WebElement> webElements, final int i) {
+  protected WebElement scrollToElement(final List<WebElement> webElements,
+                                       final int i) {
     try {
       ((JavascriptExecutor) getDriver())
           .executeScript("arguments[0].scrollIntoView(true);", webElements.get(i));

@@ -18,8 +18,8 @@ import org.testng.TestNGException;
 public class RegisterSteps extends BaseSteps {
 
   private static final Logger LOGGER = LogManager.getLogger(RegisterSteps.class);
-  private static final String SCRIPT_STRING =
-      "return window.getComputedStyle(document.querySelector('%s'),'::after').getPropertyValue('content')";
+  private static final String SCRIPT_STRING = "return window.getComputedStyle(document."
+      + "querySelector('%s'),'::after').getPropertyValue('content')";
 
   public void fillUpAndSubmitRegFormAssumingSuccess(final String email,
                                                     final String firstName,
@@ -76,7 +76,8 @@ public class RegisterSteps extends BaseSteps {
 
   private void fillUpPhoneNumberInputs(final String targetPhoneCode,
                                        final String phoneNumber) {
-    LOGGER.info(String.format("Filling up the 'Phone number' field with value '%s'", targetPhoneCode + phoneNumber));
+    LOGGER.info(String.format("Filling up the 'Phone number' field with value '%s'",
+        targetPhoneCode + phoneNumber));
     final var page = PageFactory.initElements(getDriver(), RegisterPage.class);
     final var phoneCodeDropdown = page.getPhoneCodeDropdown();
     var selectedPhoneCode = phoneCodeDropdown.findElement(SELECTED_PHONE_CODE_SELECTOR)
@@ -103,17 +104,20 @@ public class RegisterSteps extends BaseSteps {
 
   private void fullUpFirstNameInput(final String firstName) {
     LOGGER.info(String.format("Filling up the 'First name' field with value '%s'", firstName));
-    PageFactory.initElements(getDriver(), RegisterPage.class).getFirstNameInput().sendKeys(firstName);
+    PageFactory.initElements(getDriver(), RegisterPage.class).getFirstNameInput()
+        .sendKeys(firstName);
   }
 
   private void fillUpLastNameInput(final String lastName) {
     LOGGER.info(String.format("Filling up the 'Last name' field with value '%s'", lastName));
-    PageFactory.initElements(getDriver(), RegisterPage.class).getLastNameInput().sendKeys(lastName);
+    PageFactory.initElements(getDriver(), RegisterPage.class).getLastNameInput()
+        .sendKeys(lastName);
   }
 
   private void setAgeConfirmationCheckbox(final boolean isToBeSelected) {
     final var isSelected = !((JavascriptExecutor) getDriver())
-        .executeScript(String.format(SCRIPT_STRING, AGE_CONFIRMATION_CHECKBOX_SELECTOR)).toString().equals("none");
+        .executeScript(String.format(SCRIPT_STRING, AGE_CONFIRMATION_CHECKBOX_SELECTOR))
+        .toString().equals("none");
     if (!isSelected && isToBeSelected) {
       clickAgeConfirmationCheckbox();
     } else if (isSelected && !isToBeSelected) {
@@ -123,7 +127,8 @@ public class RegisterSteps extends BaseSteps {
 
   private void setTermsAgreementCheckbox(final boolean isToBeSelected) {
     final var isSelected = !((JavascriptExecutor) getDriver())
-        .executeScript(String.format(SCRIPT_STRING, TERMS_AGREEMENT_CHECK_BOX_SELECTOR)).toString().equals("none");
+        .executeScript(String.format(SCRIPT_STRING, TERMS_AGREEMENT_CHECK_BOX_SELECTOR))
+        .toString().equals("none");
     if (!isSelected && isToBeSelected) {
       clickTermsAgreementCheckbox();
     } else if (isSelected && !isToBeSelected) {
@@ -133,14 +138,17 @@ public class RegisterSteps extends BaseSteps {
 
   private void clickAgeConfirmationCheckbox() {
     LOGGER.info("Setting up the 'Age confirmation' checkbox into 'true'");
-    PageFactory.initElements(getDriver(), RegisterPage.class).getAgeConfirmationCheckbox().click();
+    PageFactory.initElements(getDriver(), RegisterPage.class).getAgeConfirmationCheckbox()
+        .click();
   }
 
   private void clickTermsAgreementCheckbox() {
     LOGGER.info("Setting up the 'Terms agreement' checkbox into 'true'");
-    final var termsAgreementCheckbox = PageFactory.initElements(getDriver(), RegisterPage.class).getTermsAgreementCheckbox();
+    final var termsAgreementCheckbox = PageFactory.initElements(getDriver(), RegisterPage.class)
+        .getTermsAgreementCheckbox();
     new Actions(getDriver()).moveByOffset(
-        termsAgreementCheckbox.getLocation().getX() + 5, termsAgreementCheckbox.getLocation().getY()
+        termsAgreementCheckbox.getLocation().getX() + 5,
+        termsAgreementCheckbox.getLocation().getY()
             + termsAgreementCheckbox.getSize().getHeight() / 2).click().build().perform();
   }
 

@@ -17,7 +17,8 @@ public class AccountDetailsSteps extends AccountSteps {
   public String checkIfRegistrationSucceeded(final String email,
                                              final String firstName,
                                              final String lastName) {
-    final var accountDetailsPage = PageFactory.initElements(getDriver(), AccountDetailsPage.class);
+    final var accountDetailsPage =
+        PageFactory.initElements(getDriver(), AccountDetailsPage.class);
     final var softly = new SoftAssertions();
     String clientPassword;
     LOGGER.info("Staring account details window presence check.");

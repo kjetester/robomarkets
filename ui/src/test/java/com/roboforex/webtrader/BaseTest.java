@@ -39,7 +39,7 @@ public class BaseTest {
   private static String clientPassword;
 
   @BeforeMethod
-  public static void beforeMethod() {
+  public static void openMainPage() {
     BASE_STEP.goTo(BASE_URL);
     BASE_STEP.closeCookiesBannerIfPresent();
   }
@@ -65,6 +65,16 @@ public class BaseTest {
         {
             "Min values",
             randomAlphanumeric(2) + "@" + randomAlphanumeric(2) + "." + randomAlphabetic(2),
+            randomAlphabetic(2),
+            randomAlphabetic(2),
+            true,
+            true,
+            "+5993",
+            randomNumeric(4)
+        },
+        {
+            "Knowingly incorrect test data",
+            randomAlphanumeric(10),
             randomAlphabetic(2),
             randomAlphabetic(2),
             true,
