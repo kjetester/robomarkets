@@ -15,16 +15,16 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>14</java.version>
-        <testng.version>7.1.0</testng.version>
-        <selenium.version>4.0.0-alpha-5</selenium.version>
-        <webdrivermanager.version>3.7.1</webdrivermanager.version>
-        <assertj.version>3.14.0</assertj.version>
-        <lombok.version>1.18.10</lombok.version>
+        <testng.version>7.3.0</testng.version>
+        <selenium.version>4.0.0-alpha-6</selenium.version>
+        <webdrivermanager.version>4.1.0</webdrivermanager.version>
+        <assertj.version>3.16.1</assertj.version>
+        <lombok.version>1.18.12</lombok.version>
         <slf4j.version>2.0.0-alpha1</slf4j.version>
-        <log4j.version>2.13.0</log4j.version>
+        <log4j.version>2.13.3</log4j.version>
         <maven-plugins.version>3.0.0-M4</maven-plugins.version>
         <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
-        <agent-java-testng.version>5.0.4</agent-java-testng.version>
+        <agent-java-testng.version>5.0.6</agent-java-testng.version>
         <logger-java-log4j.version>5.0.1</logger-java-log4j.version>
         <suite>src/test/resources/testng.xml</suite>
     </properties>
@@ -119,6 +119,56 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-plugins.version}</version>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-plugins.version}</version>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <properties>
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>false</value>
+                        </property>
+                        <property>
+                            <name>listener</name>
+                            <value>com.epam.reportportal.testng.ReportPortalTestNGListener</value>
+                        </property>
+                    </properties>
+                    <systemPropertyVariables>
+                        <propertyName>env</propertyName>
+                        <buildDirectory>${project.build.directory}</buildDirectory>
+                    </systemPropertyVariables>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suite}</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <argLine>--enable-preview</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <licenses>
         <license>

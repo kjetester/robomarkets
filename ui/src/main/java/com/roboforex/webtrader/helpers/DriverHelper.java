@@ -28,11 +28,11 @@ public class DriverHelper {
       WebDriverManager.chromedriver().setup();
       ChromeOptions opts = new ChromeOptions();
       opts
-//          .addArguments("--headless", "--disable-gpu")
+          .addArguments("--headless", "--disable-gpu")
           .setAcceptInsecureCerts(true);
       driver = new ChromeDriver(opts);
       driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-      driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+      driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
       driver.manage().window().setSize(new Dimension(1500, 800));
       driver.manage().window().setPosition(new Point(0, 0));
     }

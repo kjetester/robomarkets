@@ -23,7 +23,7 @@ public class RegisterTest extends BaseTest {
     ACCOUNT_STEP.checkIfLoginSucceeded();
   }
 
-  @Test(dataProvider = "negativeDataProvider")
+  @Test(dataProvider = "negativeDataProvider", priority = 1)
   public static void negativeTest(final String testCase,
                                   final String email,
                                   final String firstName,
