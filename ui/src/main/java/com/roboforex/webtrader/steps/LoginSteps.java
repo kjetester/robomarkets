@@ -2,6 +2,7 @@ package com.roboforex.webtrader.steps;
 
 import static com.roboforex.webtrader.helpers.DriverHelper.getDriver;
 
+import com.roboforex.webtrader.buisenessobjects.User;
 import com.roboforex.webtrader.pages.LoginPage;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -16,10 +17,9 @@ public class LoginSteps extends BaseSteps {
     PageFactory.initElements(getDriver(), LoginPage.class).getRegisterButton().click();
   }
 
-  public void logIn(final String clientEmail,
-                    final String clientPassword) {
-    fillUpEmailInput(clientEmail);
-    fillUpPasswordInput(clientPassword);
+  public void logIn(final User user) {
+    fillUpEmailInput(user.getEmail());
+    fillUpPasswordInput(user.getPassword());
     submitLogin();
   }
 
@@ -37,6 +37,13 @@ public class LoginSteps extends BaseSteps {
   private void submitLogin() {
     LOGGER.info("Submitting the Login form");
     PageFactory.initElements(getDriver(), LoginPage.class).getLoginButton().click();
+    checkForNoErrors();
+  }
+
+  public void logInWithoutRegistration() {
+    LOGGER.info("Loggin in without registration");
+    PageFactory.initElements(getDriver(), LoginPage.class)
+        .getLogInWithoutRegistrationButton().click();
     checkForNoErrors();
   }
 }

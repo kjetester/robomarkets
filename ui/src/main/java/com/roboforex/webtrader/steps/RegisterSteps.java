@@ -6,6 +6,7 @@ import static com.roboforex.webtrader.pages.RegisterPage.PHONE_CODES_SELECTOR;
 import static com.roboforex.webtrader.pages.RegisterPage.SELECTED_PHONE_CODE_SELECTOR;
 import static com.roboforex.webtrader.pages.RegisterPage.TERMS_AGREEMENT_CHECK_BOX_SELECTOR;
 
+import com.roboforex.webtrader.buisenessobjects.User;
 import com.roboforex.webtrader.pages.RegisterPage;
 import java.util.stream.IntStream;
 import org.apache.log4j.LogManager;
@@ -21,46 +22,34 @@ public class RegisterSteps extends BaseSteps {
   private static final String SCRIPT_STRING = "return window.getComputedStyle(document."
       + "querySelector('%s'),'::after').getPropertyValue('content')";
 
-  public void fillUpAndSubmitRegFormAssumingSuccess(final String email,
-                                                    final String firstName,
-                                                    final String lastName,
-                                                    final boolean isAgeConfirmed,
-                                                    final boolean isTermsAgreed,
-                                                    final String phoneCode,
-                                                    final String phoneNumber) {
-    fillUpEmailInput(email);
-    fillUpPhoneNumberInputs(phoneCode, phoneNumber);
-    fullUpFirstNameInput(firstName);
-    fillUpLastNameInput(lastName);
-    setAgeConfirmationCheckbox(isAgeConfirmed);
-    setTermsAgreementCheckbox(isTermsAgreed);
+  public void fillUpAndSubmitRegFormAssumingSuccess(final User user) {
+    fillUpEmailInput(user.getEmail());
+    fillUpPhoneNumberInputs(user.getPhoneCode(), user.getPhoneNumber());
+    fullUpFirstNameInput(user.getFirstName());
+    fillUpLastNameInput(user.getLastName());
+    setAgeConfirmationCheckbox(user.getIsAgeConfirmed());
+    setTermsAgreementCheckbox(user.getIsTermsAgreed());
     submitRegistration();
     checkForNoErrors();
   }
 
   public void fillUpAndSubmitRegFormAssumingFail(final String testCase,
-                                                 final String email,
-                                                 final String firstName,
-                                                 final String lastName,
-                                                 final boolean isAgeConfirmed,
-                                                 final boolean isTermsAgreed,
-                                                 final String phoneCode,
-                                                 final String phoneNumber) {
+                                                 final User user) {
 
     switch (testCase) {
       case "Empty fields" -> {
-        setAgeConfirmationCheckbox(isAgeConfirmed);
-        setTermsAgreementCheckbox(isTermsAgreed);
+        setAgeConfirmationCheckbox(user.getIsAgeConfirmed());
+        setTermsAgreementCheckbox(user.getIsTermsAgreed());
         submitRegistration();
         checkForErrors(9);
       }
       case "Already registered user" -> {
-        fillUpEmailInput(email);
-        fillUpPhoneNumberInputs(phoneCode, phoneNumber);
-        fullUpFirstNameInput(firstName);
-        fillUpLastNameInput(lastName);
-        setAgeConfirmationCheckbox(isAgeConfirmed);
-        setTermsAgreementCheckbox(isTermsAgreed);
+        fillUpEmailInput(user.getEmail());
+        fillUpPhoneNumberInputs(user.getPhoneCode(), user.getPhoneNumber());
+        fullUpFirstNameInput(user.getFirstName());
+        fillUpLastNameInput(user.getLastName());
+        setAgeConfirmationCheckbox(user.getIsAgeConfirmed());
+        setTermsAgreementCheckbox(user.getIsTermsAgreed());
         submitRegistration();
         checkForErrors(1);
       }

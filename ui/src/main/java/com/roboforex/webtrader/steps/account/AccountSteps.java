@@ -2,6 +2,7 @@ package com.roboforex.webtrader.steps.account;
 
 import static com.roboforex.webtrader.helpers.DriverHelper.getDriver;
 import static com.roboforex.webtrader.pages.account.AccountPage.INTERACTIVE_AREA_SELECTOR;
+import static com.roboforex.webtrader.pages.account.AccountPage.MESSAGE_TO_UNREGISTERED_USER_SELECTOR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.roboforex.webtrader.pages.account.AccountPage;
@@ -24,5 +25,16 @@ public class AccountSteps extends BaseSteps {
     assertThat(isElementPresent(INTERACTIVE_AREA_SELECTOR))
         .as("A Logout button isn't present")
         .isTrue();
+  }
+
+  public void checkIfUserNotRegistered() {
+    LOGGER.info("Checking message to unregistered user");
+    assertThat(isElementPresent(MESSAGE_TO_UNREGISTERED_USER_SELECTOR))
+        .as("A Message isn't present")
+        .isTrue();
+    assertThat(getDriver().findElement(MESSAGE_TO_UNREGISTERED_USER_SELECTOR).getText())
+        .as("A Message has incorrect text")
+        .isEqualTo("Attention! You're not logged in!");
+
   }
 }

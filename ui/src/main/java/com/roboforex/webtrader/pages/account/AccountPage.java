@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 public class AccountPage extends BasePage {
 
   public static final By INTERACTIVE_AREA_SELECTOR = By.cssSelector(".interactive-area");
+  public static final By MESSAGE_TO_UNREGISTERED_USER_SELECTOR = By.cssSelector(".important");
 
   @FindBy(css = ".user-info__logout")
   @Getter

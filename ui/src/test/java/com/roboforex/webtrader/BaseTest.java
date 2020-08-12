@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
+import com.roboforex.webtrader.buisenessobjects.User.Builder;
 import com.roboforex.webtrader.helpers.TestFailureListener;
 import com.roboforex.webtrader.steps.BaseSteps;
 import com.roboforex.webtrader.steps.LoginSteps;
@@ -12,8 +13,6 @@ import com.roboforex.webtrader.steps.RegisterSteps;
 import com.roboforex.webtrader.steps.account.AccountDetailsSteps;
 import com.roboforex.webtrader.steps.account.AccountSteps;
 import com.roboforex.webtrader.steps.account.AccountTourSteps;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.AfterMethod;
@@ -34,10 +33,6 @@ public class BaseTest {
   public static final AccountTourSteps TOUR_STEP = new AccountTourSteps();
   public static final AccountSteps ACCOUNT_STEP = new AccountSteps();
 
-  @Getter
-  @Setter
-  private static String clientPassword;
-
   @BeforeMethod
   public static void openMainPage() {
     BASE_STEP.goTo(BASE_URL);
@@ -54,33 +49,35 @@ public class BaseTest {
     return new Object[][]{
         {
             "Max values",
-            randomAlphanumeric(20) + "@" + randomAlphanumeric(20) + "." + randomAlphabetic(3),
-            randomAlphabetic(20),
-            randomAlphabetic(20),
-            true,
-            true,
-            "+7",
-            randomNumeric(10)
+            new Builder()
+                .setEmail(randomAlphanumeric(20) + "@" + randomAlphanumeric(20) + "."
+                    + randomAlphabetic(3))
+                .setFirstName(randomAlphabetic(20))
+                .setLastName(randomAlphabetic(20))
+                .setPhoneCode("+7")
+                .setPhoneNumber(randomNumeric(10))
+                .build()
         },
         {
             "Min values",
-            randomAlphanumeric(2) + "@" + randomAlphanumeric(2) + "." + randomAlphabetic(2),
-            randomAlphabetic(2),
-            randomAlphabetic(2),
-            true,
-            true,
-            "+5993",
-            randomNumeric(4)
+            new Builder()
+                .setEmail(randomAlphanumeric(2) + "@" + randomAlphanumeric(2) + "."
+                    + randomAlphabetic(2))
+                .setFirstName(randomAlphabetic(2))
+                .setLastName(randomAlphabetic(2))
+                .setPhoneCode("+5993")
+                .setPhoneNumber(randomNumeric(4))
+                .build()
         },
         {
             "Knowingly incorrect test data",
-            randomAlphanumeric(10),
-            randomAlphabetic(2),
-            randomAlphabetic(2),
-            true,
-            true,
-            "+7",
-            randomNumeric(4)
+            new Builder()
+                .setEmail(randomAlphanumeric(10))
+                .setFirstName(randomAlphabetic(2))
+                .setLastName(randomAlphabetic(2))
+                .setPhoneCode("+7")
+                .setPhoneNumber(randomNumeric(4))
+                .build()
         }
     };
   }
@@ -90,23 +87,20 @@ public class BaseTest {
     return new Object[][]{
         {
             "Empty fields",
-            null,
-            null,
-            null,
-            false,
-            false,
-            null,
-            null
+            new Builder()
+                .setAgeConfirmed(false)
+                .setTermsAgreed(false)
+                .build()
         },
         {
             "Already registered user",
-            "qwe@qwe.qwe",
-            randomAlphabetic(2),
-            randomAlphabetic(2),
-            true,
-            true,
-            "+7",
-            randomNumeric(4)
+            new Builder()
+                .setEmail("qwe@qwe.qwe")
+                .setFirstName(randomAlphabetic(2))
+                .setLastName(randomAlphabetic(2))
+                .setPhoneCode("+7")
+                .setPhoneNumber(randomNumeric(4))
+                .build()
         }
     };
   }

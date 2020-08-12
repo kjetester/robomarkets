@@ -18,4 +18,7 @@ public class LoginPage extends BasePage {
   @FindBy(css = ".button_type_quick-demo")
   @Getter
   private WebElement registerButton;
+  @FindBy(css = "[class $= 'nonregistered'] .link__title")
+  @Getter
+  private WebElement logInWithoutRegistrationButton;
 }

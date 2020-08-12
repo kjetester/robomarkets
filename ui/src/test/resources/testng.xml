@@ -6,6 +6,12 @@
        parallel="true"
        verbose="5">
 
+    <test name="Login Tests" enabled="true" thread-count="1">
+        <classes>
+            <class name="com.roboforex.webtrader.login.LoginTest"/>
+        </classes>
+    </test>
+
     <test name="Registration Tests" enabled="true" thread-count="1">
         <classes>
             <class name="com.roboforex.webtrader.registration.RegisterTest"/>

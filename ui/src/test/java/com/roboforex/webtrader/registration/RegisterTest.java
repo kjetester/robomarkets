@@ -1,55 +1,28 @@
 package com.roboforex.webtrader.registration;
 
 import com.roboforex.webtrader.BaseTest;
+import com.roboforex.webtrader.buisenessobjects.User;
 import org.testng.annotations.Test;
 
 public class RegisterTest extends BaseTest {
 
   @Test(dataProvider = "positiveDataProvider")
   public static void positiveTest(final String testCase,
-                                  final String email,
-                                  final String firstName,
-                                  final String lastName,
-                                  final boolean isAgeConfirmed,
-                                  final boolean isTermsAgreed,
-                                  final String phoneCode,
-                                  final String phoneNumber) {
+                                  final User user) {
     LOGIN_STEP.openRegisterPage();
-    REGISTER_STEP.fillUpAndSubmitRegFormAssumingSuccess(email,
-        firstName,
-        lastName,
-        isAgeConfirmed,
-        isTermsAgreed,
-        phoneCode,
-        phoneNumber);
-    setClientPassword(ACCOUNT_DETAILS_STEP.checkIfRegistrationSucceeded(
-        email,
-        firstName,
-        lastName));
+    REGISTER_STEP.fillUpAndSubmitRegFormAssumingSuccess(user);
+    final var registeredUser =
+        ACCOUNT_DETAILS_STEP.checkIfRegistrationSucceeded(user);
     TOUR_STEP.closeTourWindowIfPresent();
     ACCOUNT_STEP.logOut();
-    LOGIN_STEP.logIn(email, getClientPassword());
+    LOGIN_STEP.logIn(registeredUser);
     ACCOUNT_STEP.checkIfLoginSucceeded();
   }
 
   @Test(dataProvider = "negativeDataProvider", priority = 1)
   public static void negativeTest(final String testCase,
-                                  final String email,
-                                  final String firstName,
-                                  final String lastName,
-                                  final boolean isAgeConfirmed,
-                                  final boolean isTermsAgreed,
-                                  final String phoneCode,
-                                  final String phoneNumber) {
+                                  final User user) {
     LOGIN_STEP.openRegisterPage();
-    REGISTER_STEP.fillUpAndSubmitRegFormAssumingFail(
-        testCase,
-        email,
-        firstName,
-        lastName,
-        isAgeConfirmed,
-        isTermsAgreed,
-        phoneCode,
-        phoneNumber);
+    REGISTER_STEP.fillUpAndSubmitRegFormAssumingFail(testCase, user);
   }
 }
